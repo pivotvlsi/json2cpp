@@ -1,0 +1,18 @@
+# Binaries and object files
+*.exe
+*.o
+*.a
+*.obj
+
+# Generated test C++ and simulation files
+test_*.cpp
+sim_runner.cpp
+*.actual.out
+
+# Intermediate serialization directories
+sam_*
+
+# Temporary files
+temp*.json
+debug_out.txt
+*.log
