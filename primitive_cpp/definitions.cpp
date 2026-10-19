@@ -3,6 +3,7 @@
 #include <string> 
 #include "definitions.h"
 using namespace std;
+int वर्तमानकालः = 0;
 
 wire::wire() {
     wire::setVal('z');

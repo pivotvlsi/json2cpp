@@ -45,8 +45,10 @@ $actual_test_base =~ s/\.json$//;
 
 print "Translating AST JSON -> C++ for: $actual_test_base\n";
 
-# 3. Copy test JSON to sam_ folder safely using Python for Windows UTF-8 path handling
-system(qq{python -c "import os, shutil; d='sam_आन्तरिककुञ्जीमूल्यरूपम्'; os.makedirs(d, exist_ok=True); [os.remove(os.path.join(d, x)) for x in os.listdir(d)]; shutil.copy(r'$matched_path', d)"});
+# 3. Copy test JSON to sam_ folder safely using Python with Unicode codepoints for Windows
+my $safe_path = $matched_path;
+$safe_path =~ s{\\}{/}g;
+system(qq{python -c "import os, shutil, sys; d=''.join(chr(c) for c in [115,97,109,95,2310,2344,2381,2340,2352,2367,2325,2325,2369,2334,2381,2332,2368,2350,2370,2354,2381,2351,2352,2370,2346,2350,2381]); os.makedirs(d, exist_ok=True); [os.remove(os.path.join(d, x)) for x in os.listdir(d)]; shutil.copy(sys.argv[1], d)" "$safe_path"});
 
 # 4. Run json2verif.exe
 my $rc = system("json2verif.exe");

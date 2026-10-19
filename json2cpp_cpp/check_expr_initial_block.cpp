@@ -61,106 +61,33 @@ std::string आद्याङ्गपरिक्षाप्रकटम् (
 }
 
 
-std::string आद्याङ्गवाक्यम् (std::vector<std::string> statement_temp, json port, std::string module_name) {
-    string first_operand = "";
-    string second_operand = "";
-    string operand1 = "";
-    string operand2 = "";
-
-    
-    std::stack<std::string> गणनापुटः;
-    for (int temp =0; temp < statement_temp.size(); temp = temp+1) {
-        if (is_operator(statement_temp[temp])) {
-            if (statement_temp[temp] == "+") {
-                if (!गणनापुटः.empty()) {
-                    operand1 = गणनापुटः.top();
-                    गणनापुटः.pop();
-                } else {
-                    cerr <<"Error from aadyaangavaakyam while getting oerand1; Ill formed expression";
-                }
-                if (!गणनापुटः.empty()) {
-                    operand2 = गणनापुटः.top();
-                    गणनापुटः.pop();
-                } else {
-                    cerr <<"Error from aadyaangavaakyam while getting oerand1; Ill formed expression";
-                }
-                
-
-
-                first_operand      = आद्यारम्भाङ्गोपाधानम्(operand1,port);
-                second_operand = आद्यारम्भाङ्गोपाधानम्(operand2, port);
-                std::string from;
-                std::string to;
-                size_t pos;
-                from = ",";
-                to = "+";
-                pos = 0;
-                while ((pos = first_operand.find(from, pos)) != std::string::npos) {
-                    first_operand.replace(pos, from.length(), to);
-                    pos += to.length(); // move past replaced text
-                }
-                from = "std::string(1";
-                to = "std::string(1,";
-                pos = 0;
-                while ((pos = first_operand.find(from, pos)) != std::string::npos) {
-                    first_operand.replace(pos, from.length(), to);
-                    pos += to.length(); // move past replaced text
-                }
-                from = ",";
-                to = "+";
-                pos = 0;
-                while ((pos = second_operand.find(from, pos)) != std::string::npos) {
-                    second_operand.replace(pos, from.length(), to);
-                    pos += to.length(); // move past replaced text
-                }
-                from = "std::string(1";
-                to = "std::string(1,";
-                pos = 0;
-                while ((pos = second_operand.find(from, pos)) != std::string::npos) {
-                    second_operand.replace(pos, from.length(), to);
-                    pos += to.length(); // move past replaced text
+void आद्याङ्गवाक्यम्(कुञ्जीमूल्यरूपम्& प्रकरणसूची, std::string& वाक्यम्, unsigned long& अवस्थाचरण, const std::string& आद्यारम्भाङ्गनामम्, int वर्तमानाद्याङ्गम्, std::string& सञ्चिकापाठ, कुञ्जीमूल्यरूपम्& घटकप्रकरणसूची) {
+    कुञ्जीमूल्यरूपम्* द्विरुक्तप्रकरणसूची = &प्रकरणसूची;
+    int प्रथमक्रमः = 0;
+    std::string कुञ्जी;
+    std::string मूल्यम्;
+    bool प्राप्तम् = false;   
+    while (प्रथमक्रमः < द्विरुक्तप्रकरणसूची->size()) {
+        if(शब्दशब्दनक्शा* आन्तरिकनक्शा = std::get_if<शब्दशब्दनक्शा>(&(*द्विरुक्तप्रकरणसूची)[प्रथमक्रमः])) {
+            for (const auto& [कुञ्जी_1, मूल्यम्_1] : *आन्तरिकनक्शा) {
+                कुञ्जी = कुञ्जी_1; 
+                मूल्यम् = मूल्यम्_1;
+                उद्धरणचिह्ननिष्कासनम्(कुञ्जी);
+                if (कुञ्जी == "वाक्यम्") {
+                    उद्धरणचिह्ननिष्कासनम्(मूल्यम्);
+                    std::string व्यञ्जकम् = "";
+                    आद्यारम्भाङ्गपश्चव्यञ्जकरूपान्तरणम् (मूल्यम्, व्यञ्जकम्, घटकप्रकरणसूची, अवस्थाचरण, आद्यारम्भाङ्गनामम्, वर्तमानाद्याङ्गम्, सञ्चिकापाठ);
+                    वाक्यम् = वाक्यम् +"\t\t\t\t" + व्यञ्जकम् + "\n";
+                    प्राप्तम् = true;
                 }
 
-                गणनापुटः.push("आद्यारम्भाङ्गम्_द्विबिन्दुयोजनम् ("+first_operand+","+ second_operand +")");
-                              
-
-            } else if (statement_temp[temp] == "=") {
-                if (!गणनापुटः.empty()) {
-                    operand1 = गणनापुटः.top();
-                    गणनापुटः.pop();
-                } else {
-                    cerr <<"Error from aadyaangavaakyam while getting oerand1; Ill formed expression";
-                }
-                if (!गणनापुटः.empty()) {
-                    operand2 = गणनापुटः.top();
-                    गणनापुटः.pop();
-                } else {
-                    cerr <<"Error from aadyaangavaakyam while getting oerand1; Ill formed expression";
-                }
-                
-
-                
-                first_operand = आद्यारम्भाङ्गोपाधानम्(operand1,port);
-                
-                
-                second_operand = आद्यारम्भाङ्गोपाधानम्_नियोजनम् (operand2,port,module_name);
-               
-                गणनापुटः.push("आद्यारम्भाङ्गम्_द्विनियोजनम् (" +second_operand +"," + first_operand + ")");
-
-            } else {
-                cerr << "Unhandled in check_expr_initial_block aadyangavaakyam\n" ;
             }
-        
-        } else {
-            
-            गणनापुटः.push(statement_temp[temp]);
+            if (प्राप्तम्) {
+                break;
+            }  
         }
-    }
-    if (गणनापुटः.size() ==1) {
-        return गणनापुटः.top()+";";
-    } else {
-        cout << "Mal formed statement in aadyaangavaakyam\n";
-        exit(1);
+        प्रथमक्रमः++;
+
     }
 }
 
@@ -596,4 +523,114 @@ std::string आद्यारम्भाङ्गोपाधानम्_न�
     return कूटाङ्कः;
     
 
+}
+
+
+
+void आद्यारम्भाङ्गपश्चव्यञ्जकरूपान्तरणम् (std::string& मूल्यम्,std::string& व्यञ्जकम्, कुञ्जीमूल्यरूपम्& प्रकरणसूची, unsigned long& अवस्थाचरण, const std::string& आद्यारम्भाङ्गनामम्, int वर्तमानाद्याङ्गम्, std::string& सञ्चिकापाठ) {
+    std::stack<std::string> स्तूपः;
+    std::stringstream प्रवाहः(मूल्यम्);
+    std::string अस्थायी;
+    std::vector<std::string> प्रतीकाः;
+
+    // The >> operator extracts strings separated by whitespace
+    while (प्रवाहः >> अस्थायी) {
+        प्रतीकाः.push_back(अस्थायी);
+    }
+
+
+    for (const std::string& प्रतीकः : प्रतीकाः) {
+        if (!is_operator(प्रतीकः)) {
+            स्तूपः.push(प्रतीकः);
+        } else if (प्रतीकः == "U-") {
+            std::string पदम् = स्तूपः.top();
+            स्तूपः.pop();
+            स्तूपः.push("-" + पदम्);
+        } else {
+            std::string द्वितीयाङ्गम् = स्तूपः.top();
+            स्तूपः.pop();
+            std::string प्रथमाङ्गम् = स्तूपः.top();
+            स्तूपः.pop();
+            // Wrap in parentheses to maintain order of operations
+            if (प्रतीकः == "=") {
+                std::string अस्थायितार = "";
+                std::string अन्तर्विलम्बः = "";
+                if (प्रथमाङ्गम्.find("#") != std::string::npos) {
+
+                    अन्तर्विलम्बः = प्रथमाङ्गम्.substr(प्रथमाङ्गम्.find("#") + 1);
+                    प्रथमाङ्गम् = स्तूपः.top(); 
+                    स्तूपः.pop();
+                    std::string अस्थायितार = "_" + अन्तर्विलम्बः + "_" + द्वितीयाङ्गम्;
+                    सञ्चिकापाठ += "\twire " + अस्थायितार + ";\n";
+                    std::string अन्तर्विलम्बाङ्गम् = "";
+                    if (तारपरीक्षणम्(द्वितीयाङ्गम्, प्रकरणसूची)) {
+                        // Confirmed via JSON AST: it is a wire!
+                        अन्तर्विलम्बाङ्गम्  += "\t\t\t\tआद्यारम्भाङ्गम्_द्विनियोजनम्({&" + अस्थायितार + "}, string(1, " + द्वितीयाङ्गम् + ".getVal()));\n";
+                    } else {
+                        अन्तर्विलम्बाङ्गम्  += "\t\t\t\tआद्यारम्भाङ्गम्_द्विनियोजनम्({&" + अस्थायितार + "}, \"" + द्वितीयाङ्गम् + "\");\n";
+                    }
+                    अन्तर्विलम्बाङ्गम् += "\t\t\t\tआगामिनिष्पादनक्रमः_" + आद्यारम्भाङ्गनामम् + " = वर्तमानकालः + " + अन्तर्विलम्बः + ";\n";
+                    अवस्थाचरण++;
+                    अन्तर्विलम्बाङ्गम् += "\t\t\t\tनिष्पादनक्रमः_" + आद्यारम्भाङ्गनामम् + "++;\n";
+                    अन्तर्विलम्बाङ्गम् += "\t\t\tcase " + std::to_string(अवस्थाचरण) + ":\n";
+                    अन्तर्विलम्बाङ्गम् += "\t\t\t\tif (वर्तमानकालः == आगामिनिष्पादनक्रमः_" + आद्यारम्भाङ्गनामम् + ") निष्पादनक्रमः_" + आद्यारम्भाङ्गनामम् + "++;\n";
+                    अन्तर्विलम्बाङ्गम् += "\t\t\t\telse break;\n";
+                    अवस्थाचरण++;
+                    अन्तर्विलम्बाङ्गम् += "\t\t\tcase " + std::to_string(अवस्थाचरण) + ":\n";
+
+                    // 4. After delay, assign to destination wire (a)
+                    अन्तर्विलम्बाङ्गम् += "\t\t\t\tआद्यारम्भाङ्गम्_द्विनियोजनम्({&" + प्रथमाङ्गम् + "}, string(1, " + अस्थायितार + ".getVal()))";
+    
+                    स्तूपः.push(अन्तर्विलम्बाङ्गम्);
+
+                } else {
+                    if (तारपरीक्षणम्(द्वितीयाङ्गम्, प्रकरणसूची)) {
+                        // Confirmed via JSON AST: it is a wire!
+                        स्तूपः.push("आद्यारम्भाङ्गम्_द्विनियोजनम्({&" + प्रथमाङ्गम् + "}, string(1, " + द्वितीयाङ्गम् + ".getVal()))");
+                    } else {
+                        // Otherwise: it is a literal constant!
+                        स्तूपः.push("आद्यारम्भाङ्गम्_द्विनियोजनम्({&" + प्रथमाङ्गम् + "}, \"" + द्वितीयाङ्गम् + "\")");
+                    }
+                }
+            } else {
+                cerr << "To handle this operator " << प्रतीकः << endl;
+            }
+        }
+    }
+    if (स्तूपः.size() == 1) {
+        व्यञ्जकम् = स्तूपः.top() + ";\n";
+    } else {
+        cerr << "Error in postfix expression " << मूल्यम्;
+        exit(1);
+    }
+
+}
+
+bool तारपरीक्षणम् (const std::string& चरनाम, कुञ्जीमूल्यरूपम्& प्रकरणसूची) {
+    std::string शुद्धनाम = चरनाम;
+    उद्धरणचिह्ननिष्कासनम्(शुद्धनाम);
+
+    for (const auto& वस्तु : प्रकरणसूची) {
+        if (const auto* आन्तरिकनक्शा = std::get_if<शब्दपिण्डनक्शा>(&वस्तु)) {
+            for (const auto& [कुञ्जी, मूल्यधारकः] : *आन्तरिकनक्शा) {
+                std::string नाम = कुञ्जी;
+                उद्धरणचिह्ननिष्कासनम्(नाम);
+                if (नाम == शुद्धनाम && मूल्यधारकः.स्थानधारकः) {
+                    for (const auto& उपवस्तु : *(मूल्यधारकः.स्थानधारकः)) {
+                        if (const auto* उपनक्शा = std::get_if<शब्दशब्दनक्शा>(&उपवस्तु)) {
+                            for (const auto& [उकुञ्जी, उमूल्यम्] : *उपनक्शा) {
+                                std::string k = उकुञ्जी, v = उमूल्यम्;
+                                उद्धरणचिह्ननिष्कासनम्(k);
+                                उद्धरणचिह्ननिष्कासनम्(v);
+                                if (k == "प्रकारः" && v == "तारः") {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return false;
 }

@@ -5,6 +5,8 @@
 #include <initializer_list>
 
 using namespace std;
+extern int वर्तमानकालः;
+
 class wire {
 public:
     wire();
