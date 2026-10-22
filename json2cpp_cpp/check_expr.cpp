@@ -9,6 +9,10 @@ using namespace std;
 
 std::unordered_map<std::string,int> precedence_array () {
     std::unordered_map<std::string, int> precedence;
+    precedence[":"] = 13;
+    precedence["+:"] = 13;
+    precedence["-:"] = 13;
+    precedence["सूचकः"] = 13;
     precedence["U-"] = 12;
     precedence["~"] =12;
     precedence["!"] = 12;

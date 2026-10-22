@@ -58,7 +58,11 @@ std::vector<std::string> सदारम्भचरस्वीकरणम् 
 std::string नियुक्तचरस्वीकरणम् (std::string);
 void चरपुनरावृत्तिनिवारणम् (std::vector<std::string>&);
 void अनिष्टवाक्यनिर्मूलनम्(कुञ्जीमूल्यरूपम्& , std::string );
+bool अङ्गसूचकपरीक्षणम् (const std::string& , std::string& , int& , int& );
 std::string सर्वचरग्रहणम् (std::string );
 std::string आश्रितचरग्रहणम् (कुञ्जीमूल्यरूपम्& ) ;
 void आश्रितचरमुद्रणम् (कुञ्जीमूल्यरूपम्& , std::string );
 bool तारपरीक्षणम् (const std::string& , कुञ्जीमूल्यरूपम्& ) ;
+bool पूर्णाङ्कपरीक्षणम् (const std::string& );
+bool अनावृतपरीक्षणम् (const std::string&     , कुञ्जीमूल्यरूपम्& );
+bool सापेक्षितसूचकपरीक्षणम् (const std::string& , std::string& , std::string& , std::string& , कुञ्जीमूल्यरूपम्& );
