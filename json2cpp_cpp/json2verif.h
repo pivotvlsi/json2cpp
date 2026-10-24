@@ -43,7 +43,7 @@ void प्रारम्भकफलनम् (std::string& ,कुञ्ज�
 void आद्यारम्भाङ्गखण्डपरिचयः (std::string&  ,कुञ्जीमूल्यरूपम्& , std::string&, std::string& );
 void आद्यारम्भाङ्गफलनम् (std::string&  ,कुञ्जीमूल्यरूपम्& , std::string , std::string, std::string&, unsigned long , कुञ्जीमूल्यरूपम्& );
 void आद्यारम्भाङ्गक्रमसंग्रहफलनम् (कुञ्जीमूल्यरूपम्& ,std::unordered_map<int,int>&);
-void आद्याङ्गवाक्यम्(कुञ्जीमूल्यरूपम्& , std::string&, unsigned long& , const std::string& , int, std::string&, कुञ्जीमूल्यरूपम्&  );
+void आद्याङ्गवाक्यम्(कुञ्जीमूल्यरूपम्& , std::string&, unsigned long& ,  std::string& , int, std::string&, कुञ्जीमूल्यरूपम्&,const  std::string&  );
 void विलम्बफलनम्(कुञ्जीमूल्यरूपम्& , int& );
 void यद्यङ्गफलनम्(कुञ्जीमूल्यरूपम्& ,std::string& , std::string , std::string , std::vector<शब्दशब्दनक्शा>& ,int& , int );
 void अन्यथायद्यङ्गफलनम्(कुञ्जीमूल्यरूपम्& ,std::string& , std::string , std::string , std::vector<शब्दशब्दनक्शा>& ,int& , int );
@@ -51,7 +51,7 @@ void अन्यथाङ्गफलनम्(कुञ्जीमूल्�
 void मूलघटकक्रमनिर्माणम् (कुञ्जीमूल्यरूपम्&);
 std::string शब्दतत्त्वप्राप्तिः (कुञ्जीमूल्यरूपम्&, std::string);
 void पश्चव्यञ्जकरूपान्तरणम् (std::string& ,std::string& );
-void आद्यारम्भाङ्गपश्चव्यञ्जकरूपान्तरणम् (std::string& ,std::string&, कुञ्जीमूल्यरूपम्&, unsigned long& , const std::string& , int, std::string& );
+void आद्यारम्भाङ्गपश्चव्यञ्जकरूपान्तरणम् (std::string& ,std::string&, कुञ्जीमूल्यरूपम्&, unsigned long& ,  std::string& , int, std::string&,const std::string& );
 void सदारम्भाङ्गखण्डपरिचयः (कुञ्जीमूल्यरूपम्&  );
 void सदारम्भाङ्गफलनम् (कुञ्जीमूल्यरूपम्& , कुञ्जीमूल्यरूपम्&, std::string );
 std::vector<std::string> सदारम्भचरस्वीकरणम् ( कुञ्जीमूल्यरूपम्&);

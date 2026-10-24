@@ -45,6 +45,9 @@ std::unordered_map<std::string,int> precedence_array () {
 
 bool is_operator (const std::string& var) {
     std::unordered_map<std::string, int> precedence =precedence_array();
+    if (var.find("शृङ्खला") != std::string::npos) {
+        return true;
+    }
     if (precedence.find(var) != precedence.end()) {
         return true;
     }

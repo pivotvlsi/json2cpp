@@ -229,6 +229,11 @@ char आद्यारम्भाङ्गम्_द्विनियोज�
     return '1';
 
 }
+char आद्यारम्भाङ्गम्_द्विनियोजनम्(wire& dest, const wire& src) {
+    dest.setUInt(src.getUInt());
+    return '1';
+}
+
 
 char आद्यारम्भाङ्गम्_द्विनियोजनम्_सूचकम् (initializer_list<wire*> क, wire& स्रोतस्तारः, int उच्चसूचकः, int निम्नसूचकः) {
     char val = स्रोतस्तारः.getVal();

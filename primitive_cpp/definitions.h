@@ -4,22 +4,35 @@
 #include <string>
 #include <initializer_list>
 
+
 using namespace std;
 extern int वर्तमानकालः;
+#include <cstdint>
+
+enum wire_state : uint8_t {
+    STATE_0 = 0,
+    STATE_1 = 1,
+    STATE_X = 2,
+    STATE_Z = 3
+};
 
 class wire {
 public:
     wire();
     wire (char c);
+    wire (uint8_t u);
     void operator=(char a);
+    void operator=(uint8_t u);
     char getVal();
     void setVal(char a);
+    uint8_t getUInt() const;
+    void setUInt(uint8_t u);
 private:
-    char val;
-
-    void validate (char a);
+    uint8_t val;
+    static uint8_t charToUInt(char c);
+    static char uintToChar(uint8_t u);
 };
-
+#include "dpi/dpi.h"
 //And deifitions
 class And {
 public:
@@ -66,7 +79,7 @@ typedef struct {
     string तार्किकाङ्गम्;
     int उधारयति;
 } निर्गमनिर्माणम्;
-#endif
+
 char आद्यारम्भाङ्गम्_तार्किकसमतापरीक्षणम् (string , string );
 char आद्यारम्भाङ्गम्_तार्किककनिष्ठात्परीक्षणम् (string , string );
 char  आद्यारम्भाङ्गम्_तार्किकज्यायान्परीक्षणम् (string , string );
@@ -90,8 +103,9 @@ string आद्यारम्भाङ्गम्_द्विबिन्द
 //}
 string दशमिकपरिवर्तकः (string) ;
 char आद्यारम्भाङ्गम्_द्विनियोजनम् (initializer_list<wire*>, string);
-
+char आद्यारम्भाङ्गम्_द्विनियोजनम्(wire& dest, const wire& src);
 char आद्यारम्भाङ्गम्_द्विनियोजनम्_सूचकम् (initializer_list<wire*> क, wire& स्रोतस्तारः, int उच्चसूचकः, int निम्नसूचकः);
 char आद्यारम्भाङ्गम्_द्विनियोजनम्_लक्ष्यसूचकम् (wire& लक्ष्यतारः, int उच्चसूचकः, int निम्नसूचकः, string द्वितीयतार्किकाङ्गम्);
 char आद्यारम्भाङ्गम्_द्विनियोजनम्_उभयसूचकम् (wire& लक्ष्यतारः, int ल_उच्च, int ल_निम्न, wire& स्रोतस्तारः, int स्र_उच्च, int स्र_निम्न);
 
+#endif

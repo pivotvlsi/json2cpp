@@ -5,32 +5,49 @@
 using namespace std;
 int वर्तमानकालः = 0;
 
-wire::wire() {
-    wire::setVal('z');
+uint8_t wire::charToUInt(char c) {
+    switch (c) {
+        case '0': return STATE_0;
+        case '1': return STATE_1;
+        case 'x': case 'X': return STATE_X;
+        case 'z': case 'Z': return STATE_Z;
+        default: return STATE_X;
+    }
 }
+
+char wire::uintToChar(uint8_t u) {
+    switch (u) {
+        case STATE_0: return '0';
+        case STATE_1: return '1';
+        case STATE_X: return 'x';
+        case STATE_Z: return 'z';
+        default: return 'x';
+    }
+}
+
+wire::wire() : val(STATE_Z) {}
+wire::wire(char c) : val(charToUInt(c)) {}
+wire::wire(uint8_t u) : val(u & 3) {}
 void wire::operator=(char a) {
-    wire::setVal(a);
+    val = charToUInt(a);
+}
+void wire::operator=(uint8_t u) {
+    val = u & 3;
 }
 char wire::getVal() {
-        return val;
+    return uintToChar(val);
 }
 void wire::setVal(char a) {
-        wire::validate(a);
-        wire::val = a;
+    val = charToUInt(a);
+}
+uint8_t wire::getUInt() const {
+    return val;
+}
+void wire::setUInt(uint8_t u) {
+    val = u & 3;
 }
 
-void wire::validate (char a) {
-    switch(a) {
-        case '0': return;
-        case '1': return;
-        case 'x': return;
-        case 'z': return;
-        default:  cout << "error in wire"; exit(1);
-    }
-
-}
-
-//And deifitions
+//And deifinitions
 
 And::And (wire &c, wire &a, wire &b) {
     z = &c;
@@ -178,4 +195,20 @@ string दशमिकपरिवर्तकः (string पद) {
     }
 }
 
+char आद्यारम्भाङ्गम्_च (char a, char b) {
+    if (a == '0' || b == '0') return '0';
+    if (a == '1' && b == '1') return '1';
+    return 'x';
+}
 
+char आद्यारम्भाङ्गम्_वा (char a, char b) {
+    if (a == '1' || b == '1') return '1';
+    if (a == '0' && b == '0') return '0';
+    return 'x';
+}
+
+char आद्यारम्भाङ्गम्_न (char a) {
+    if (a == '0') return '1';
+    if (a == '1') return '0';
+    return 'x';
+}

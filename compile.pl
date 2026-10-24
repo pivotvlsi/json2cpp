@@ -10,6 +10,9 @@ use File::Basename;
 # Set binmode for proper UTF-8 console output
 binmode(STDOUT, ":utf8");
 binmode(STDERR, ":utf8");
+#Compile DPI functions
+print "Building libdpi...\n";
+system("g++ -shared -O2 -I. dpi/dpi.cpp -o libdpi.dll -Wl,--out-implib,libdpi.a");
 
 # 1. Compile json2map static library if libjson2map.a doesn't exist
 if (! -e "json2map_cpp/libjson2map.a") {
@@ -43,3 +46,11 @@ if ($status != 0) {
 } else {
     print "Compilation successful -> json2verif.exe\n";
 }
+
+
+print "Building gen_main.exe...\n";
+my $status_main = system("g++ -std=c++17 json2cpp_cpp/gen_main.cpp -o gen_main.exe");
+if ($status_main != 0) {
+    die "Failed to compile gen_main.exe\n";
+}
+print "Compilation successful -> gen_main.exe\n";
