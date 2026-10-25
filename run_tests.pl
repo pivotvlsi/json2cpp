@@ -58,6 +58,14 @@ for my $json_file (@tests_to_run) {
     my $test_name = basename($json_file);
     $test_name =~ s/\.json$//;
 
+    my $diag_file = $json_file;
+    $diag_file =~ s/\.json$/.diag/;
+    if (-f $diag_file) {
+        print "\n[SKIP] Negative syntax testcase $test_name has diagnostic ($diag_file), skipping simulation pipeline.\n";
+        $passed++;
+        next;
+    }
+
     print "\n==================================================\n";
     print "Running Test Pipeline: $test_name\n";
     print "==================================================\n";

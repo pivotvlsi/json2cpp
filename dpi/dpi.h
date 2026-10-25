@@ -46,7 +46,9 @@ inline void dpi_print_val(char spec, const char* val) {
 
 template <typename T>
 inline void dpi_print_val(char spec, const T& val) {
-    if (spec == 'd') std::printf("%d", (int)val);
+    if (spec == 'd') std::printf("%11d", (int)val);
+    else if (spec == '0') std::printf("%d", (int)val);
+    else if (spec == 'f') std::printf("%f", (double)val);    
     else if (spec == 'h' || spec == 'x') std::printf("%x", (int)val);
     else if (spec == 'b') std::printf("%d", (int)val);
     else if (spec == 'c') std::putchar((char)val);
@@ -73,6 +75,11 @@ inline void display_internal(const char* fmt, const T& first, const Args&... res
                 std::putchar('%');
                 fmt += 2;
                 continue;
+            }
+            if (*(fmt + 1) == '0' && *(fmt + 2) == 'd') {
+                dpi_print_val('0', first);
+                display_internal(fmt + 3, rest...);
+                return;
             }
             char spec = *(fmt + 1);
             dpi_print_val(spec, first);

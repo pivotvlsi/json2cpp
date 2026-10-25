@@ -34,7 +34,7 @@ find(sub {
 
 my $test_dir = $matched_path ? dirname($matched_path) : "tests";
 my $actual_out   = "$test_dir/$base_name.actual.out";
-my $expected_out = "$test_dir/$base_name.expected.out";
+my $expected_out = "$test_dir/$base_name.expected.v.out";
 
 if (! -e $actual_out) {
     die "Error: Actual output file '$actual_out' not found! Run 'perl exec_sim.pl $base_name' first.\n";
