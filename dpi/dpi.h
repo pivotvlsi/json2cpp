@@ -60,6 +60,18 @@ inline void dpi_print_val(char spec, const wire (&w)[N]) {
         for (size_t i = 0; i < N; ++i) {
             std::putchar(const_cast<wire&>(w[N - 1 - i]).getVal());
         }
+    } else if (spec == 'o') {
+        unsigned long long num = 0;
+        for (size_t i = 0; i < N && i < 64; ++i) {
+            if (const_cast<wire&>(w[i]).getVal() == '1') num |= (1ULL << i);
+        }
+        std::printf("%llo", num);
+    } else if (spec == 'd') {
+        unsigned long long num = 0;
+        for (size_t i = 0; i < N && i < 64; ++i) {
+            if (const_cast<wire&>(w[i]).getVal() == '1') num |= (1ULL << i);
+        }
+        std::printf("%11llu", num);
     } else if (spec == 'h' || spec == 'x') {
         // Print hex representation of array
         unsigned long long num = 0;
