@@ -66,3 +66,4 @@ bool तारपरीक्षणम् (const std::string& , कुञ्ज�
 bool पूर्णाङ्कपरीक्षणम् (const std::string& );
 bool अनावृतपरीक्षणम् (const std::string&     , कुञ्जीमूल्यरूपम्& );
 bool सापेक्षितसूचकपरीक्षणम् (const std::string& , std::string& , std::string& , std::string& , कुञ्जीमूल्यरूपम्& );
+int तारविस्तारप्राप्तिः(const std::string& , कुञ्जीमूल्यरूपम्& ) ;
