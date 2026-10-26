@@ -103,9 +103,13 @@ string आद्यारम्भाङ्गम्_द्विबिन्द
 //}
 string दशमिकपरिवर्तकः (string) ;
 char आद्यारम्भाङ्गम्_द्विनियोजनम् (initializer_list<wire*>, string);
-char आद्यारम्भाङ्गम्_द्विनियोजनम्(wire& dest, const wire& src);
-char आद्यारम्भाङ्गम्_द्विनियोजनम्_सूचकम् (initializer_list<wire*> क, wire& स्रोतस्तारः, int उच्चसूचकः, int निम्नसूचकः);
-char आद्यारम्भाङ्गम्_द्विनियोजनम्_लक्ष्यसूचकम् (wire& लक्ष्यतारः, int उच्चसूचकः, int निम्नसूचकः, string द्वितीयतार्किकाङ्गम्);
-char आद्यारम्भाङ्गम्_द्विनियोजनम्_उभयसूचकम् (wire& लक्ष्यतारः, int ल_उच्च, int ल_निम्न, wire& स्रोतस्तारः, int स्र_उच्च, int स्र_निम्न);
+char आद्यारम्भाङ्गम्_द्विनियोजनम् (initializer_list<wire*>, long long);
+char आद्यारम्भाङ्गम्_द्विनियोजनम् (initializer_list<wire*>, wire*, int);
+char आद्यारम्भाङ्गम्_द्विनियोजनम्(wire& , const wire& );
+char आद्यारम्भाङ्गम्_द्विनियोजनम्_सूचकम् (initializer_list<wire*> , wire* , int , int );
+char आद्यारम्भाङ्गम्_द्विनियोजनम्_लक्ष्यसूचकम् (wire* , int , int , string );
+int सूचकमूल्यम्(wire* , int );
+char आद्यारम्भाङ्गम्_द्विनियोजनम्_लक्ष्यसूचकम् (wire& , int , int , string );
+char आद्यारम्भाङ्गम्_द्विनियोजनम्_उभयसूचकम् (wire& , int , int , wire& , int , int );
 
 #endif
