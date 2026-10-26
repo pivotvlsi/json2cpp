@@ -5,6 +5,7 @@
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
+#include <cstring>
 
 class wire; // forward declaration
 #ifdef __cplusplus
@@ -60,20 +61,62 @@ inline void dpi_print_val(char spec, const wire (&w)[N]) {
         for (size_t i = 0; i < N; ++i) {
             std::putchar(const_cast<wire&>(w[N - 1 - i]).getVal());
         }
+    } else if (spec == 'f') {
+        unsigned long long num = 0;
+        for (size_t i = 0; i < N && i < 64; ++i) {
+            if (const_cast<wire&>(w[i]).getVal() == '1') num |= (1ULL << i);
+        }
+        double d_val = 0.0;
+        std::memcpy(&d_val, &num, sizeof(d_val));
+        std::printf("%f", d_val);
     } else if (spec == 'o') {
+        bool has_x = false, has_z = false;
+        for (size_t i = 0; i < N; ++i) {
+            char c = const_cast<wire&>(w[i]).getVal();
+            if (c == 'x' || c == 'X') has_x = true;
+            else if (c == 'z' || c == 'Z') has_z = true;
+        }
+        if (has_x) { std::putchar('x'); return; }
+        if (has_z) { std::putchar('z'); return; }
         unsigned long long num = 0;
         for (size_t i = 0; i < N && i < 64; ++i) {
             if (const_cast<wire&>(w[i]).getVal() == '1') num |= (1ULL << i);
         }
         std::printf("%llo", num);
-    } else if (spec == 'd') {
+    } else if (spec == 'd' || spec == '0') {
+        bool has_x = false, has_z = false;
+        for (size_t i = 0; i < N; ++i) {
+            char c = const_cast<wire&>(w[i]).getVal();
+            if (c == 'x' || c == 'X') has_x = true;
+            else if (c == 'z' || c == 'Z') has_z = true;
+        }
+        int width = (spec == '0') ? 0 : 11;
+        if (has_x || has_z) {
+            char ch = has_x ? 'x' : 'z';
+            if (width > 0) std::printf("%*c", width, ch);
+            else std::putchar(ch);
+            return;
+        }
         unsigned long long num = 0;
         for (size_t i = 0; i < N && i < 64; ++i) {
             if (const_cast<wire&>(w[i]).getVal() == '1') num |= (1ULL << i);
         }
-        int width = (N == 32) ? 10 : ((N == 16) ? 12 : 11);
-        std::printf("%*llu", width, num);    } else if (spec == 'h' || spec == 'x') {
-        // Print hex representation of array
+        if (width > 0) std::printf("%*llu", width, num);
+        else std::printf("%llu", num);
+    } else if (spec == 'h' || spec == 'x') {
+        bool has_x = false, has_z = false;
+        for (size_t i = 0; i < N; ++i) {
+            char c = const_cast<wire&>(w[i]).getVal();
+            if (c == 'x' || c == 'X') has_x = true;
+            else if (c == 'z' || c == 'Z') has_z = true;
+        }
+        if (has_x || has_z) {
+            char ch = has_x ? 'x' : 'z';
+            int width = (N == 32) ? 8 : ((N == 16) ? 4 : 3);
+            if (width > 0) std::printf("%*c", width, ch);
+            else std::putchar(ch);
+            return;
+        }
         unsigned long long num = 0;
         for (size_t i = 0; i < N && i < 64; ++i) {
             if (const_cast<wire&>(w[i]).getVal() == '1') num |= (1ULL << i);
